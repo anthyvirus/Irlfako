@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>GhostChild — Live Trainer (Hotfix)</title>
+<title>GhostChild — Live Trainer (Edge-to-Edge)</title>
 <meta name="theme-color" content="#071510" />
 <style>
   :root{ --bg:#071510; --card:#0D2018; --accent:#D3B24C; --text:#E6ECEF; --muted:#94A3B8; --border:#173228; }
@@ -13,28 +13,31 @@
   button{border:0;border-radius:12px;padding:10px 14px;cursor:pointer;background:#16222a;color:#fff}
   button.primary{background:var(--accent);color:#111}
   button.ghost{background:#0f172a;border:1px solid #1f2937}
-  input{width:100%;background:#0f172a;border:1px solid #1f2937;color:#e5e7eb;border-radius:12px;padding:9px 10px}
+  input{width:100%;background:#0f172a;border:1px solid #1f2937;color:#e5e7eb;border-radius:12px;padding:10px}
+
   .app{max-width:1100px;margin:0 auto;padding:12px;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
-  .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-  .brand{display:flex;align-items:center;gap:10px}
-  .live{display:flex;align-items:center;gap:8px;background:#0e1b16;border:1px solid var(--border);padding:6px 10px;border-radius:999px}
+  .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .brand{display:flex;gap:10px;align-items:center}
+  .live{display:flex;gap:8px;align-items:center;background:#0e1b16;border:1px solid var(--border);padding:6px 10px;border-radius:999px}
   .dot{width:8px;height:8px;border-radius:999px;background:#fb3f3f;box-shadow:0 0 0 6px rgba(251,63,63,.15);animation:pulse 1.6s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(251,63,63,.35)}70%{box-shadow:0 0 0 12px rgba(251,63,63,0)}100%{box-shadow:0 0 0 0 rgba(251,63,63,0)}}
 
-  /* --- VIDEO: full width like Kick/Twitch --- */
-  .layout{display:block}
-  .videoBar{position:relative;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#000}
-  .videoBox{position:relative;width:100%;aspect-ratio:16/9}
-  .videoBox video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(1)}
+  /* Edge-to-edge video banner (like Kick) */
+  .videoBleed{width:100vw; margin-left:calc(50% - 50vw);} /* full-bleed */
+  .videoBar{position:relative; background:#000;}
+  .videoBox{position:relative; width:100%; aspect-ratio:16/9;}
+  .videoBox video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scaleX(1)}
   .mirror .videoBox video{transform:scaleX(-1)}
-  .hud{position:absolute;left:0;top:0;right:0;pointer-events:none;padding:8px}
+  .hud{position:absolute; left:0; top:0; right:0; pointer-events:none; padding:8px}
   .badge{display:inline-flex;gap:6px;align-items:center;background:rgba(0,0,0,.55);color:#fff;padding:5px 9px;border-radius:999px;font-size:12px;border:1px solid rgba(255,255,255,.12);margin-right:6px}
   .badge.gold{background:rgba(211,178,76,.18);border-color:rgba(211,178,76,.45);color:#f6e7b2}
+  /* optional soft corners on phones */
+  .videoBar{border-radius:14px; overflow:hidden; border:1px solid var(--border)}
 
-  /* --- CHAT --- */
-  .chat{position:relative;margin-top:8px;background:var(--card);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
+  /* Chat */
+  .chat{position:relative;background:var(--card);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;margin-top:10px}
   .chatHead{display:flex;align-items:center;justify-content:space-between;padding:10px;border-bottom:1px solid var(--border)}
-  .chatBody{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+  .chatBody{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth;max-height:48vh}
   .msg{display:flex;gap:8px;align-items:flex-start}
   .avatar{width:24px;height:24px;border-radius:50%;background:#0b1220;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;color:#bcd;flex:none}
   .bubble{background:#0b1220;border:1px solid var(--border);padding:6px 10px;border-radius:12px 12px 12px 6px;max-width:92%;word-break:break-word}
@@ -46,19 +49,18 @@
   .controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
   .footer{margin-top:10px;color:var(--muted);font-size:12px}
 
-  /* Landscape: video left / chat right */
+  /* Landscape: video left, chat right */
   @media (orientation:landscape){
-    .layout{display:grid;grid-template-columns:2fr 1fr;gap:10px;align-items:start}
-    .chat{margin-top:0;height:100%}
-    .chatBody{height:55vh}
+    .videoBleed{width:auto; margin-left:0;} /* disable bleed in landscape */
+    .dual{display:grid; grid-template-columns:2fr 1fr; gap:10px; align-items:start}
+    .chatBody{max-height:58vh}
   }
 
-  /* Theater fallback */
-  .theater{position:fixed;inset:0;z-index:9999;background:var(--bg);padding:8px}
-  .theater .app{max-width:none;height:100dvh}
-  .theater .videoBox{height:60dvh;aspect-ratio:auto}
+  /* Fullscreen theater fallback */
+  .theater{position:fixed; inset:0; z-index:9999; background:var(--bg); padding:8px}
+  .theater .videoBleed{width:auto; margin:0}
+  .theater .videoBox{height:60dvh; aspect-ratio:auto}
   .theater .chat{height:calc(40dvh - 12px)}
-  /* Error banner */
   #err{position:fixed;left:8px;right:8px;bottom:8px;background:#7f1d1d;color:#fee2e2;border:1px solid #ef4444;padding:8px 10px;border-radius:12px;display:none;z-index:5000}
 </style>
 </head>
@@ -69,34 +71,35 @@
         <div style="width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#0a120d,#0d2018);display:flex;align-items:center;justify-content:center;border:1px solid var(--border)">🗡️</div>
         <div>
           <div style="font-weight:700;letter-spacing:.3px">GhostChild Live Trainer</div>
-          <div style="font-size:12px;color:#94A3B8">Full-bleed video • reliable camera • one-click ultra record</div>
+          <div style="font-size:12px;color:#94A3B8">Edge-to-edge video • reliable camera • ultra record</div>
         </div>
       </div>
       <div class="live"><div class="dot"></div><div>LIVE (training)</div></div>
     </div>
 
-    <div class="layout">
-      <!-- VIDEO -->
-      <div>
-        <div class="videoBar" id="videoBar">
-          <div class="videoBox" id="videoBox">
-            <video id="cam" playsinline muted></video>
-            <div class="hud">
-              <span class="badge">@<span id="handle">ghostchild</span></span>
-              <span class="badge gold">👁 <span id="viewers">0</span></span>
-              <span class="badge">❤️ <span id="likes">0</span></span>
-              <span class="badge">⏱ <span id="clock">00:00</span></span>
-            </div>
+    <!-- VIDEO: full-bleed across the screen -->
+    <section class="videoBleed">
+      <div class="videoBar">
+        <div class="videoBox" id="videoBox">
+          <video id="cam" playsinline muted></video>
+          <div class="hud">
+            <span class="badge">@<span id="handle">ghostchild</span></span>
+            <span class="badge gold">👁 <span id="viewers">0</span></span>
+            <span class="badge">❤️ <span id="likes">0</span></span>
+            <span class="badge">⏱ <span id="clock">00:00</span></span>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="controls">
-          <button class="primary" id="startCam">Start Camera (HD)</button>
-          <button id="recUltra">● Ultra Record (Video+Chat)</button>
-          <button id="fsBtn">Fullscreen / Rotate</button>
-          <button id="mirrorBtn" class="ghost">Mirror: ON</button>
-          <button id="clearChat" class="ghost">Clear Chat</button>
-        </div>
+    <div class="dual">
+      <!-- CONTROLS -->
+      <div class="controls">
+        <button class="primary" id="startCam">Start Camera (HD)</button>
+        <button id="recUltra">● Ultra Record (Video+Chat)</button>
+        <button id="fsBtn">Fullscreen / Rotate</button>
+        <button id="mirrorBtn" class="ghost">Mirror: ON</button>
+        <button id="clearChat" class="ghost">Clear Chat</button>
       </div>
 
       <!-- CHAT -->
@@ -111,12 +114,12 @@
       </div>
     </div>
 
-    <div class="footer">Tip: open on HTTPS in Safari/Chrome (not an in-app browser). iPhone uses Apple’s native video fullscreen.</div>
+    <div class="footer">Use Chrome or Safari (not an in-app browser). iPhone uses Apple’s native video fullscreen.</div>
   </div>
   <div id="err"></div>
 
 <script>
-/* ---------- basics ---------- */
+/* -------------- helpers -------------- */
 const $=s=>document.querySelector(s)
 const chatBody=$('#chatBody'), cam=$('#cam'), err=$('#err')
 const viewersEl=$('#viewers'), likesEl=$('#likes'), clockEl=$('#clock')
@@ -124,10 +127,10 @@ const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a
 const pad2=n=>String(n).padStart(2,'0')
 const isiOS=/iPad|iPhone|iPod/.test(navigator.userAgent)|| (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1)
 const colorFor=n=>{let h=0;for(let i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))%360;return `hsl(${h} 75% 70%)`}
-function showErr(t){ err.textContent=t; err.style.display='block'; setTimeout(()=>err.style.display='none', 5000) }
+function showErr(t){ err.textContent=t; err.style.display='block'; setTimeout(()=>err.style.display='none', 6000) }
 window.addEventListener('error',e=>showErr('Script error: '+(e.message||'unknown')))
 
-/* ---------- chat minimal ---------- */
+/* -------------- chat minimal -------------- */
 let autoScroll=true
 chatBody.addEventListener('scroll',()=>{
   autoScroll = chatBody.scrollHeight - chatBody.scrollTop - chatBody.clientHeight < 40
@@ -138,63 +141,57 @@ function pushMsg(name,text){
   const row=document.createElement('div'); row.className='msg'
   const av=document.createElement('div'); av.className='avatar'; av.textContent=name.slice(0,2).toUpperCase()
   const bubble=document.createElement('div'); bubble.className='bubble'
-  bubble.innerHTML=`<span class="name" style="color:${colorFor(name)}">${escape(name)}</span>${escape(text)}`
+  bubble.innerHTML=`<span class="name" style="color:${colorFor(name)}">${escapeHTML(name)}</span>${escapeHTML(text)}`
   row.appendChild(av); row.appendChild(bubble); chatBody.appendChild(row)
   if(autoScroll) chatBody.scrollTop=chatBody.scrollHeight
 }
 $('#sendBtn').onclick=()=>{ const v=$('#myMsg').value.trim(); if(!v) return; pushMsg('You',v); $('#myMsg').value='' }
 $('#clearChat').onclick=()=>{ chatBody.innerHTML='' }
-const escape=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))
 
-/* ---------- camera (reliable tiered start + iOS play) ---------- */
+/* -------------- camera: hardened start -------------- */
 async function startCamera(){
-  const tiers=[
-    {w:1920,h:1080,fps:60},{w:1920,h:1080,fps:30},
-    {w:1280,h:720,fps:30}
+  // Try exact presets in order: 1080p60 → 1080p30 → 720p30
+  const tries=[
+    {w:1920,h:1080,fps:60},
+    {w:1920,h:1080,fps:30},
+    {w:1280,h:720,fps:30},
   ]
-  for(const t of tiers){
+  for(const t of tries){
     try{
       const s=await navigator.mediaDevices.getUserMedia({
-        video:{facingMode:'user',width:{ideal:t.w},height:{ideal:t.h},frameRate:{ideal:t.fps,max:t.fps}},
+        video:{ facingMode:'user', width:{exact:t.w}, height:{exact:t.h}, frameRate:{ideal:t.fps, max:t.fps} },
         audio:true
       })
       cam.srcObject=s
       cam.muted=true; cam.playsInline=true
-      await cam.play().catch(()=>{})        // iOS requires play() on user gesture
+      await cam.play()  // user-gesture: we call from click
       $('#startCam').textContent=`Camera On (${t.h}p@${t.fps})`
       $('#startCam').disabled=true
       return
-    }catch(e){ /* try next */ }
+    }catch(e){
+      // move to next preset
+      if(t===tries[tries.length-1]) showErr(`Camera failed: ${e.name||'Error'} — ${e.message||''}`)
+    }
   }
-  showErr('Could not access camera/mic. Check permissions & HTTPS.')
 }
 $('#startCam').onclick=startCamera
 
-/* ---------- HUD counters ---------- */
+/* -------------- HUD counters -------------- */
 let likes=0, viewers=0, t0=Date.now()
 setInterval(()=>{ viewers = Math.max(0, (viewers||37) + rnd(-2,4)); viewersEl.textContent=viewers; if(Math.random()<0.4){ likes++; likesEl.textContent=likes } },1200)
 setInterval(()=>{ const s=Math.floor((Date.now()-t0)/1000); clockEl.textContent=`${pad2(Math.floor(s/60))}:${pad2(s%60)}` },1000)
 
-/* ---------- fullscreen ---------- */
+/* -------------- fullscreen (iOS friendly) -------------- */
 const root=document.documentElement
-async function goFS(){ 
-  if(isiOS){ cam.webkitEnterFullscreen?.(); return }
-  try{ await root.requestFullscreen(); await screen.orientation?.lock?.('landscape').catch(()=>{}); document.body.classList.add('theater') }
-  catch{ document.body.classList.toggle('theater') }
-}
-async function exitFS(){ 
-  if(isiOS){ cam.webkitExitFullscreen?.(); return }
-  if(document.fullscreenElement){ await document.exitFullscreen(); document.body.classList.remove('theater') }
-  else document.body.classList.remove('theater')
-}
-let fs=false
-$('#fsBtn').onclick=()=>{ fs?exitFS():goFS(); fs=!fs }
+async function goFS(){ if(isiOS){ cam.webkitEnterFullscreen?.(); return } try{ await root.requestFullscreen(); await screen.orientation?.lock?.('landscape').catch(()=>{}); document.body.classList.add('theater') } catch{ document.body.classList.toggle('theater') } }
+async function exitFS(){ if(isiOS){ cam.webkitExitFullscreen?.(); return } if(document.fullscreenElement){ await document.exitFullscreen(); document.body.classList.remove('theater') } else document.body.classList.remove('theater') }
+let fs=false; $('#fsBtn').onclick=()=>{ fs?exitFS():goFS(); fs=!fs }
 
-/* ---------- mirror ---------- */
-let mirrorOn=true
-$('#mirrorBtn').onclick=()=>{ mirrorOn=!mirrorOn; $('#mirrorBtn').textContent=`Mirror: ${mirrorOn?'ON':'OFF'}`; document.getElementById('app').classList.toggle('mirror',mirrorOn) }
+/* -------------- mirror -------------- */
+let mirrorOn=true; $('#mirrorBtn').onclick=()=>{ mirrorOn=!mirrorOn; $('#mirrorBtn').textContent=`Mirror: ${mirrorOn?'ON':'OFF'}`; document.getElementById('app').classList.toggle('mirror',mirrorOn) }
 
-/* ---------- Ultra Record (video + HUD + last 10 chat lines) ---------- */
+/* -------------- Ultra record: video + HUD + last 10 chat lines -------------- */
 let rec=null, chunks=[], rafId=null
 function preferMime(){ 
   if(MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) return 'video/webm;codecs=vp9'
@@ -218,9 +215,9 @@ $('#recUltra').onclick = async ()=>{
     ctx.fillStyle='#F2F5F7'; ctx.font='26px system-ui'; ctx.fillText('@ghostchild',28,48)
     ctx.fillStyle='#F6E7B2'; ctx.font='18px system-ui'
     ctx.fillText(`👁 ${viewers}   ❤️ ${likes}   ⏱ ${$('#clock').textContent}`,28,76)
-    // Chat (last 10)
+    // Last 10 chat lines
     const lines=[...document.querySelectorAll('.bubble')].slice(-10).map(n=>n.textContent)
-    const x=cw-440, w=424; let y=28
+    const x=cw-460, w=440; let y=28
     ctx.fillStyle='rgba(0,0,0,.42)'; ctx.fillRect(x-8,16,w+16,lines.length*40+16)
     ctx.fillStyle='#e6ecef'; ctx.font='17px system-ui'
     for(const L of lines){ for(const r of wrap(ctx,L,w)){ ctx.fillText(r,x,y); y+=20 } y+=8 }
@@ -234,7 +231,7 @@ $('#recUltra').onclick = async ()=>{
 
   const mime=preferMime()
   const opts=mime?{mimeType:mime,videoBitsPerSecond:12_000_000,audioBitsPerSecond:192_000}:{videoBitsPerSecond:12_000_000,audioBitsPerSecond:192_000}
-  try{ rec=new MediaRecorder(out,opts) }catch(e){ try{ rec=new MediaRecorder(out) }catch{ showErr('Recording not supported on this browser.'); return } }
+  try{ rec=new MediaRecorder(out,opts) }catch(e){ try{ rec=new MediaRecorder(out) }catch{ showErr('Recording not supported in this browser.'); return } }
   chunks=[]
   rec.ondataavailable=e=>{ if(e.data.size) chunks.push(e.data) }
   rec.onstop=()=>{ const type=mime||'video/webm'; const blob=new Blob(chunks,{type}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`ghost_ultra_${Date.now()}.${type.includes('mp4')?'mp4':'webm'}`; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000); $('#recUltra').textContent='● Ultra Record (Video+Chat)'; if(rafId) cancelAnimationFrame(rafId); rec=null; chunks=[] }
@@ -242,13 +239,6 @@ $('#recUltra').onclick = async ()=>{
   $('#recUltra').textContent='■ Stop Recording'
 }
 function wrap(ctx,t,maxW){ const w=String(t).split(/\s+/), out=[]; let line=''; for(const word of w){ const test=line?line+' '+word:word; if(ctx.measureText(test).width>maxW){ if(line) out.push(line); line=word } else line=test } if(line) out.push(line); return out }
-
-/* ---------- tiny bot trickle so you can test ---------- */
-const seed=['Mic sounds clean.','W stream energy.','Drop a system for that.','Mid take? Cook harder 💀','Numbers climbing ↗️','Chaos unlocked 😈','Respect from the islands 🌊']
-setInterval(()=>{ const t=seed[rnd(0,seed.length-1)]; pushMsg(['Kai','Rae','Luca','Nova'][rnd(0,3)], t) }, 1400)
-
-/* ---------- helpers ---------- */
-function escape(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
 </script>
 </body>
 </html>
