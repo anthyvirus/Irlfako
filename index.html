@@ -1,66 +1,76 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>GhostChild Live Trainer — Twitch/Kick Layout</title>
-  <meta name="theme-color" content="#071510" />
-  <style>
-    :root{
-      /* Deep Emerald palette */
-      --bg:#071510; --card:#0D2018; --accent:#D3B24C; --text:#E6ECEF; --muted:#94A3B8; --border:#173228;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,Segoe UI,Roboto}
-    button{border:0;border-radius:12px;padding:10px 14px;cursor:pointer;background:#16222a;color:#fff}
-    button.primary{background:var(--accent);color:#111}
-    button.ghost{background:#0f172a;border:1px solid #1f2937}
-    input{width:100%;background:#0f172a;border:1px solid #1f2937;color:#e5e7eb;border-radius:12px;padding:10px}
-    .app{max-width:1024px;margin:0 auto;padding:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
-    .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-    .brand{display:flex;align-items:center;gap:10px}
-    .live{display:flex;align-items:center;gap:8px;background:#0e1b16;border:1px solid var(--border);padding:6px 10px;border-radius:999px}
-    .dot{width:8px;height:8px;border-radius:999px;background:#fb3f3f;box-shadow:0 0 0 6px rgba(251,63,63,.15);animation:pulse 1.6s infinite}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(251,63,63,.35)}70%{box-shadow:0 0 0 12px rgba(251,63,63,0)}100%{box-shadow:0 0 0 0 rgba(251,63,63,0)}}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>GhostChild — Ultra Fake Live (Gen-Z)</title>
+<meta name="theme-color" content="#071510" />
+<style>
+  :root{
+    /* Option A — Deep Emerald */
+    --bg:#071510; --card:#0D2018; --accent:#D3B24C; --text:#E6ECEF; --muted:#94A3B8; --border:#173228;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,Segoe UI,Roboto}
+  button{border:0;border-radius:12px;padding:10px 14px;cursor:pointer;background:#16222a;color:#fff}
+  button.primary{background:var(--accent);color:#111}
+  button.ghost{background:#0f172a;border:1px solid #1f2937}
+  input,select{width:100%;background:#0f172a;border:1px solid #1f2937;color:#e5e7eb;border-radius:12px;padding:9px 10px}
+  .app{max-width:1024px;margin:0 auto;padding:12px;padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+  .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .live{display:flex;align-items:center;gap:8px;background:#0e1b16;border:1px solid var(--border);padding:6px 10px;border-radius:999px}
+  .dot{width:8px;height:8px;border-radius:999px;background:#fb3f3f;box-shadow:0 0 0 6px rgba(251,63,63,.15);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(251,63,63,.35)}70%{box-shadow:0 0 0 12px rgba(251,63,63,0)}100%{box-shadow:0 0 0 0 rgba(251,63,63,0)}}
 
-    /* ---- VIDEO BAR (like Twitch/Kick) ---- */
-    .videoBar{position:relative;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#000}
-    .videoBox{position:relative;width:100%;aspect-ratio:16/9}   /* 16:9 like Twitch/Kick */
-    .videoBox video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(1)}
-    .mirror .videoBox video{transform:scaleX(-1)}
-    .hud{position:absolute;left:0;top:0;right:0;pointer-events:none;padding:8px}
-    .badge{display:inline-flex;gap:6px;align-items:center;background:rgba(0,0,0,.55);color:#fff;padding:5px 9px;border-radius:999px;font-size:12px;border:1px solid rgba(255,255,255,.12);margin-right:6px}
-    .badge.gold{background:rgba(211,178,76,.18);border-color:rgba(211,178,76,.45);color:#f6e7b2}
-    .likes{position:absolute;right:10px;bottom:10px;display:flex;flex-direction:column;align-items:center;gap:8px}
-    .heart{width:20px;height:20px;position:absolute;bottom:10px;right:10px;opacity:.9;animation:float 2.2s ease-out forwards}
-    .heart:before{content:"";position:absolute;left:10px;top:0;width:10px;height:16px;background:#ff4470;border-radius:10px 10px 0 0;transform:rotate(-45deg)}
-    .heart:after{content:"";position:absolute;left:0;top:0;width:10px;height:16px;background:#ff4470;border-radius:10px 10px 0 0;transform:rotate(45deg)}
-    @keyframes float{0%{transform:translateY(0) scale(1);opacity:.95} 85%{opacity:.9} 100%{transform:translateY(-180px) scale(1.3);opacity:0}}
+  /* Video top (Kick/Twitch style) */
+  .videoBar{position:relative;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#000}
+  .videoBox{position:relative;width:100%;aspect-ratio:16/9}
+  .videoBox video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(1)}
+  .mirror .videoBox video{transform:scaleX(-1)}
+  .hud{position:absolute;left:0;top:0;right:0;pointer-events:none;padding:8px}
+  .badge{display:inline-flex;gap:6px;align-items:center;background:rgba(0,0,0,.55);color:#fff;padding:5px 9px;border-radius:999px;font-size:12px;border:1px solid rgba(255,255,255,.12);margin-right:6px}
+  .badge.gold{background:rgba(211,178,76,.18);border-color:rgba(211,178,76,.45);color:#f6e7b2}
 
-    /* ---- CHAT ---- */
-    .chat{position:relative;margin-top:8px;background:var(--card);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
-    .chatHead{display:flex;align-items:center;justify-content:space-between;padding:10px;border-bottom:1px solid var(--border)}
-    .chatBody{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
-    .msg{display:flex;gap:8px;align-items:flex-start}
-    .avatar{width:24px;height:24px;border-radius:50%;background:#0b1220;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;color:#bcd;flex:none}
-    .bubble{background:#0b1220;border:1px solid var(--border);padding:6px 10px;border-radius:12px 12px 12px 6px;max-width:92%;word-break:break-word}
-    .name{font-weight:800;margin-right:6px}
-    .sys{color:var(--muted);font-size:12px;text-align:center}
-    .inputRow{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border)}
-    .emojiBar{display:flex;gap:6px;flex-wrap:wrap;padding:0 10px 10px}
-    .emojiBtn{background:#0b1220;border:1px solid var(--border);padding:6px;border-radius:10px;font-size:18px}
-    #jump{position:absolute;right:10px;bottom:74px;background:#0b1220;border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:12px;display:none}
+  /* dopamine overlays */
+  .overlay{position:absolute;inset:0;pointer-events:none}
+  .banner{position:absolute;left:50%;top:10%;transform:translateX(-50%);padding:10px 16px;border-radius:999px;font-weight:800;border:1px solid #0006;background:#0b1220cc}
+  .banner.hype{color:#10ffb0;border-color:#10ffb088}
+  .banner.boo{color:#ff4b6e;border-color:#ff4b6e88}
+  .combo{position:absolute;right:12px;top:12px;font-weight:900;font-size:20px;color:#fff;background:#0008;padding:6px 10px;border-radius:10px;border:1px solid #ffffff22}
 
-    .controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-    .footer{margin-top:10px;color:var(--muted);font-size:12px}
+  /* floating emoji */
+  .float{position:absolute;font-size:22px;animation:rise 2.4s ease-out forwards}
+  @keyframes rise{0%{transform:translateY(0) scale(1);opacity:.95}100%{transform:translateY(-180px) scale(1.3);opacity:0}}
 
-    /* Fullscreen / Theater fallback */
-    .theater{position:fixed;inset:0;z-index:9999;background:var(--bg);padding:8px}
-    .theater .app{max-width:none;height:100dvh}
-    .theater .videoBox{height:60dvh;aspect-ratio:auto}
-    .theater .chat{height:calc(40dvh - 12px)}
-  </style>
+  /* Chat */
+  .chat{position:relative;margin-top:8px;background:var(--card);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
+  .chatHead{display:flex;align-items:center;justify-content:space-between;padding:10px;border-bottom:1px solid var(--border)}
+  .chatBody{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+  .msg{display:flex;gap:8px;align-items:flex-start}
+  .avatar{width:24px;height:24px;border-radius:50%;background:#0b1220;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;color:#bcd;flex:none}
+  .bubble{background:#0b1220;border:1px solid var(--border);padding:6px 10px;border-radius:12px 12px 12px 6px;max-width:92%;word-break:break-word}
+  .name{font-weight:800;margin-right:6px}
+  .sys{color:var(--muted);font-size:12px;text-align:center}
+  .inputRow{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border)}
+  .emojiBar{display:flex;gap:6px;flex-wrap:wrap;padding:0 10px 10px}
+  .emojiBtn{background:#0b1220;border:1px solid var(--border);padding:6px;border-radius:10px;font-size:18px}
+  #jump{position:absolute;right:10px;bottom:74px;background:#0b1220;border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-size:12px;display:none}
+
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .settings{margin-top:10px;background:#0b1220;border:1px solid var(--border);border-radius:16px;padding:10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .col{flex:1 1 220px}
+  .small{font-size:12px;color:var(--muted)}
+  .footer{margin-top:10px;color:var(--muted);font-size:12px}
+
+  /* Theater fallback */
+  .theater{position:fixed;inset:0;z-index:9999;background:var(--bg);padding:8px}
+  .theater .app{max-width:none;height:100dvh}
+  .theater .videoBox{height:60dvh;aspect-ratio:auto}
+  .theater .chat{height:calc(40dvh - 12px)}
+</style>
 </head>
 <body>
   <div class="app mirror" id="app">
@@ -68,8 +78,8 @@
       <div class="brand">
         <div style="width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#0a120d,#0d2018);display:flex;align-items:center;justify-content:center;border:1px solid var(--border)">🗡️</div>
         <div>
-          <div style="font-weight:700;letter-spacing:.4px">GhostChild Fake Live — Kick/Twitch Layout</div>
-          <div style="font-size:12px;color:#94A3B8">Video at top (16:9 cover), chat below, rotate for full.</div>
+          <div style="font-weight:700;letter-spacing:.4px">GhostChild Ultra Trainer</div>
+          <div class="small">4K-ish record • Gen-Z bot chat • emoji rain • hype/boo banners</div>
         </div>
       </div>
       <div class="live"><div class="dot"></div><div>LIVE (training)</div></div>
@@ -85,7 +95,7 @@
           <span class="badge">❤️ <span id="likes">0</span></span>
           <span class="badge">⏱ <span id="clock">00:00</span></span>
         </div>
-        <div class="likes" id="likeArea"></div>
+        <div class="overlay" id="overlay"></div>
       </div>
     </div>
 
@@ -93,7 +103,7 @@
     <div class="chat" id="chatPanel">
       <div class="chatHead">
         <div style="font-weight:600">Chat</div>
-        <div style="font-size:12px;color:#94A3B8">Bots: <span id="botsState">off</span></div>
+        <div class="small">Bots: <span id="botsState">off</span> • Mood: <span id="moodLive">support</span></div>
       </div>
       <div class="chatBody" id="chatBody"></div>
       <button id="jump">⬇️ Jump to latest</button>
@@ -106,183 +116,290 @@
 
     <!-- CONTROLS -->
     <div class="controls">
-      <button class="primary" id="startCam">Start Camera (HD)</button>
+      <button class="primary" id="startCam">Start Camera (Ultra)</button>
       <button id="toggleBots">Start Bots</button>
       <button id="hype">Hype</button>
+      <button id="boo" class="ghost">Boo</button>
       <button id="mirrorBtn" class="ghost">Mirror: ON</button>
-      <button id="fsBtn">Rotate / Fullscreen</button>
-      <button id="recCam">● Record (Camera)</button>
-      <button id="recHud">● Record (HUD+Chat)</button>
-      <button id="screenshot" class="ghost">Screenshot</button>
+      <button id="fsBtn">Fullscreen / Rotate</button>
+      <button id="recUltra">● Record ULTRA (Video+Chat)</button>
+      <button id="toggleSettings" class="ghost">Settings</button>
       <button id="clearChat" class="ghost">Clear Chat</button>
     </div>
 
-    <div class="footer">Tip: on iPhone, the fullscreen button uses Apple’s video fullscreen. Rotate the phone if it doesn’t auto-rotate.</div>
+    <!-- SETTINGS -->
+    <div class="settings" id="settings" hidden>
+      <div class="row">
+        <div class="col"><label>Handle</label><input id="setHandle" /></div>
+        <div class="col"><label>Chat mood</label>
+          <select id="setMood">
+            <option value="support">Support</option>
+            <option value="roast">Roast</option>
+            <option value="boo">Boo Squad</option>
+            <option value="chaos">Chaos (Gen-Z)</option>
+            <option value="coach">Coach</option>
+            <option value="chill">Zen Chill</option>
+          </select>
+        </div>
+        <div class="col"><label>Message speed (ms)</label><input id="setRate" type="number" min="250" /></div>
+        <div class="col"><label>Max chat lines</label><input id="setChatMax" type="number" min="40" /></div>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button id="saveSettings" class="primary">Save</button>
+        <div class="small">Hotkeys: C=Camera, B=Bots, H=Hype, V=Record, M=Mirror, F=Fullscreen, S=Settings</div>
+      </div>
+    </div>
+
+    <div class="footer">iPhone: fullscreen uses Apple’s native video fullscreen. Rotate after tapping if needed.</div>
   </div>
 
-  <script>
-    /* ---------- helpers ---------- */
-    const $ = s => document.querySelector(s)
-    const chatBody = $('#chatBody'), chatPanel = $('#chatPanel'),
-          videoBox = $('#videoBox'), cam = $('#cam'),
-          viewersEl = $('#viewers'), likesEl = $('#likes'),
-          likeArea = $('#likeArea'), botsStateEl = $('#botsState'), clockEl = $('#clock')
-    const rnd = (a,b)=> Math.floor(Math.random()*(b-a+1))+a
-    const choice = arr => arr[Math.floor(Math.random()*arr.length)]
-    const pad2 = n => String(n).padStart(2,'0')
-    const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1)
+<script>
+/* === helpers === */
+const $=s=>document.querySelector(s)
+const chatBody=$('#chatBody'), chatPanel=$('#chatPanel'), cam=$('#cam'), overlay=$('#overlay')
+const viewersEl=$('#viewers'), likesEl=$('#likes'), clockEl=$('#clock')
+const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a
+const choice=a=>a[Math.floor(Math.random()*a.length)]
+const pad2=n=>String(n).padStart(2,'0')
+const isiOS=/iPad|iPhone|iPod/.test(navigator.userAgent)|| (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1)
+const colorFor=n=>{let h=0;for(let i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))%360;return `hsl(${h} 75% 70%)`}
 
-    /* ---------- layout: keep chat inside the screen ---------- */
-    function sizeChat(){
-      const vb = videoBox.getBoundingClientRect().height
-      const app = document.getElementById('app').getBoundingClientRect()
-      const topH = document.querySelector('.top').getBoundingClientRect().height
-      const controlsH = document.querySelector('.controls').getBoundingClientRect().height
-      const avail = Math.max(220, window.innerHeight - (vb + topH + controlsH + 32))
-      chatPanel.style.maxHeight = avail+'px'
+/* === state === */
+const state={
+  handle: localStorage.getItem('gc_handle')||'ghostchild',
+  mood: localStorage.getItem('gc_mood')||'support',
+  msgRate: +(localStorage.getItem('gc_msgrate')||900),
+  chatMax: +(localStorage.getItem('gc_chatmax')||140),
+  botsOn:false, viewers:0, likes:0, clockStart:0, chat:[]
+}
+$('#handle').textContent=state.handle
+$('#moodLive').textContent=state.mood
+$('#setHandle').value=state.handle; $('#setMood').value=state.mood; $('#setRate').value=state.msgRate; $('#setChatMax').value=state.chatMax
+
+/* === emoji bar === */
+;['🔥','⚡','😂','💀','🎯','🚀','🏆','🙌','🗡️','🌊','💎','😈','💪','❤️','😤','😭','👀','🥶'].forEach(e=>{
+  const b=document.createElement('button'); b.className='emojiBtn'; b.textContent=e
+  b.onclick=()=>{ const i=$('#myMsg'); i.value=(i.value+' '+e).trim(); i.focus() }
+  $('#emojiBar').appendChild(b)
+})
+
+/* === camera (tiered to chase 4K/60 then fall back) === */
+async function startCamera(){
+  const tiers=[
+    {w:3840,h:2160,fps:60},{w:3840,h:2160,fps:30},
+    {w:2560,h:1440,fps:60},{w:2560,h:1440,fps:30},
+    {w:1920,h:1080,fps:60},{w:1920,h:1080,fps:30},
+    {w:1280,h:720,fps:30}
+  ]
+  for(const t of tiers){
+    try{
+      const s=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:t.w},height:{ideal:t.h},frameRate:{ideal:t.fps,max:t.fps}},audio:true})
+      cam.srcObject=s
+      $('#startCam').textContent=`Camera On (${s.getVideoTracks()[0].getSettings().width||t.w}p@${t.fps})`
+      $('#startCam').disabled=true
+      return
+    }catch(e){/* try next */}
+  }
+  alert('Could not start camera. Check permissions.')
+}
+
+/* === viewers/likes + clock === */
+function addHeart(){ state.likes++; likesEl.textContent=state.likes; emojiBurst(['❤️','💖','💘','💗']) }
+function tickViewers(){
+  if(state.viewers<=0) state.viewers=37+rnd(-3,6)
+  state.viewers=Math.max(0, state.viewers+rnd(-2,5))
+  viewersEl.textContent=state.viewers
+  if(Math.random()<0.35) addHeart()
+}
+setInterval(tickViewers,1100)
+function startClock(){ state.clockStart=Date.now(); setInterval(()=>{const s=Math.floor((Date.now()-state.clockStart)/1000); clockEl.textContent=`${pad2(Math.floor(s/60))}:${pad2(s%60)}`},1000) }
+startClock()
+
+/* === chat render + autosroll + prune === */
+let autoScroll=true
+chatBody.addEventListener('scroll',()=>{
+  autoScroll = chatBody.scrollHeight - chatBody.scrollTop - chatBody.clientHeight < 40
+  $('#jump').style.display = autoScroll ? 'none' : 'block'
+})
+$('#jump').onclick=()=>{ autoScroll=true; chatBody.scrollTop=chatBody.scrollHeight; $('#jump').style.display='none' }
+
+function pushMsg(name,text){
+  const row=document.createElement('div'); row.className='msg'
+  const av=document.createElement('div'); av.className='avatar'; av.textContent=name.split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase()
+  const bubble=document.createElement('div'); bubble.className='bubble'
+  bubble.innerHTML=`<span class="name" style="color:${colorFor(name)}">${escapeHTML(name)}</span>${escapeHTML(text)}`
+  row.appendChild(av); row.appendChild(bubble); chatBody.appendChild(row)
+  if(autoScroll) chatBody.scrollTop=chatBody.scrollHeight
+  state.chat.push({name,text}); if(state.chat.length>260) state.chat=state.chat.slice(-260)
+  if(Math.random()<0.28) floatEmoji(choice(['😂','🔥','⚡','😭','👀','😈','💀']))
+  comboBump()
+}
+function pushSys(t){ const row=document.createElement('div'); row.className='sys'; row.textContent=t; chatBody.appendChild(row); if(autoScroll) chatBody.scrollTop=chatBody.scrollHeight }
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))
+
+/* === moods (Gen-Z) === */
+const LNS={
+  support:[
+    'W energy 🔥','Mic crisp fr','Chef talk 👨‍🍳','That bar went crazy','Clippers awake ✂️','We locked in','Numbers climbing ↗️'
+  ],
+  roast:[
+    'Mid take tbh 💀','Cook harder, commander','Chat wants receipts not vibes','That was a re-run','Bro said water is wet','Ratio? maybe 😭'
+  ],
+  boo:[
+    'BOOOOO 💨','L take ❌','Scrollllll ⏭️','Pack it up champ','We not buying that 💳✋','Bring heat or mute'
+  ],
+  chaos:[
+    'GYATTTTT 😭😭','Skibidi rizzless sigma?','Bro dropped a paragraph for 0 dmg','NPC arc unlocked 🤖','Cook or get cooked 🍳','Certified cringe speedrun'
+  ],
+  coach:[
+    'Give the 3 rules.','First step right now?','Name the avatar.','Numbers or it didn’t happen.','Where does it fail?'
+  ],
+  chill:[
+    'Breathe. Slow it down.','Let it flow 🌊','One line. One point.','We’re here for the art','Take the scenic route.'
+  ]
+}
+function pool(){ return LNS[state.mood]||LNS.support }
+
+/* === bots === */
+let botTimer=null
+function schedule(){ clearTimeout(botTimer); const j=Math.max(250, state.msgRate+(Math.random()*0.9-0.45)*state.msgRate); botTimer=setTimeout(tickBot, j) }
+function tickBot(){ if(!state.botsOn) return; pushMsg(genName(), choice(pool())); schedule() }
+function startBots(){ state.botsOn=true; $('#botsState').textContent='on'; $('#moodLive').textContent=state.mood; pushSys('Bots joined.'); schedule() }
+function stopBots(){ state.botsOn=false; $('#botsState').textContent='off'; pushSys('Bots paused.'); clearTimeout(botTimer) }
+function genName(){ const F=['Kai','Mika','Rae','Luca','Noa','Sage','Aria','Zee','Tane','Mali','Jax','Tori','Koa','Rook','Navi','Kane','Dax','Nova','Sefa','Lani']; const L=['Fiji','PNG','Ghost','Vault','Edge','Storm','Reign','Wave','Raptor','Beta','Sigma']; return choice(F)+' '+choice(L) }
+
+/* === dopamine: emoji rain, banners, combo === */
+function floatEmoji(e){ const el=document.createElement('div'); el.className='float'; el.textContent=e; el.style.left=rnd(6,94)+'%'; el.style.bottom='6%'; overlay.appendChild(el); setTimeout(()=>el.remove(),2300) }
+function emojiBurst(arr){ for(let i=0;i<12;i++) setTimeout(()=> floatEmoji(choice(arr)), i*80) }
+function banner(text,type){ const b=document.createElement('div'); b.className='banner '+type; b.textContent=text; overlay.appendChild(b); setTimeout(()=>b.remove(),1200) }
+let combo=0, comboTO=null
+function comboBump(){ combo++; renderCombo(); clearTimeout(comboTO); comboTO=setTimeout(()=>{ combo=0; renderCombo() }, 1600) }
+function renderCombo(){ let el=$('.combo'); if(combo<=1){ if(el) el.remove(); return } if(!el){ el=document.createElement('div'); el.className='combo'; overlay.appendChild(el) } el.textContent='COMBO ×'+combo }
+
+/* === fullscreen (iOS-friendly) === */
+const root=document.documentElement
+async function goFS(){ if(isiOS){ cam.webkitEnterFullscreen?.(); return } try{ await root.requestFullscreen(); await screen.orientation?.lock?.('landscape').catch(()=>{}); document.body.classList.add('theater') }catch{ document.body.classList.toggle('theater') } }
+async function exitFS(){ if(isiOS){ cam.webkitExitFullscreen?.(); return } if(document.fullscreenElement){ await document.exitFullscreen(); document.body.classList.remove('theater') } else document.body.classList.remove('theater') }
+let fs=false
+
+/* === ULTRA RECORD: one button, records video+HUD+chat === */
+let rec=null, chunks=[], rafId=null
+function preferMime(){ 
+  if(MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) return 'video/webm;codecs=vp9'
+  if(MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) return 'video/webm;codecs=vp8'
+  if(MediaRecorder.isTypeSupported('video/mp4;codecs=h264')) return 'video/mp4;codecs=h264' // Safari
+  return ''
+}
+$('#recUltra').onclick = async ()=>{
+  if(rec){ stopRec(); return }
+  if(!cam.srcObject){ await startCamera() }
+
+  const v=cam
+  const cw=v.videoWidth||1920, ch=v.videoHeight||1080
+  const canvas=document.createElement('canvas'); canvas.width=cw; canvas.height=ch
+  const ctx=canvas.getContext('2d')
+
+  const draw=()=>{
+    ctx.drawImage(v,0,0,cw,ch)
+    // HUD
+    ctx.fillStyle='rgba(0,0,0,.45)'; ctx.fillRect(16,16,380,80)
+    ctx.fillStyle='#F2F5F7'; ctx.font='26px system-ui'; ctx.fillText('@'+state.handle,28,48)
+    ctx.fillStyle='#F6E7B2'; ctx.font='18px system-ui'
+    ctx.fillText(`👁 ${state.viewers}   ❤️ ${state.likes}   ⏱ ${clockEl.textContent}`,28,76)
+
+    // Chat panel (last 10)
+    const msgs=state.chat.slice(-10)
+    const panelW=Math.min(460, Math.floor(cw*0.42)), x=cw-panelW-16, y0=16
+    ctx.fillStyle='rgba(0,0,0,.42)'; ctx.fillRect(x,y0,panelW,10+msgs.length*48)
+    let y=y0+34
+    for(const m of msgs){
+      ctx.fillStyle=colorFor(m.name); ctx.font='17px system-ui'; ctx.fillText(m.name+':', x+12,y)
+      const nx = x+12+ctx.measureText(m.name+':').width+6
+      ctx.fillStyle='#e6ecef'; ctx.font='17px system-ui'
+      for(const line of wrap(ctx, m.text, panelW-24-(nx-x))){ ctx.fillText(line, nx, y); y+=20 }
+      y+=8
     }
-    window.addEventListener('resize', sizeChat)
-    new ResizeObserver(sizeChat).observe(videoBox)
 
-    /* ---------- camera (1080p → 720p fallback) ---------- */
-    async function startCamera(){
-      try{
-        const get = c => navigator.mediaDevices.getUserMedia(c)
-        const hd = await get({ video:{facingMode:'user', width:{ideal:1920}, height:{ideal:1080}, frameRate:{ideal:30,max:30}}, audio:true }).catch(()=>null)
-        const stream = hd || await get({ video:{facingMode:'user', width:{ideal:1280}, height:{ideal:720}, frameRate:{ideal:30,max:30}}, audio:true })
-        cam.srcObject = stream
-        $('#startCam').textContent = stream.getVideoTracks()[0].getSettings().height >= 1000 ? 'Camera On (1080p)' : 'Camera On (720p)'
-        $('#startCam').disabled = true
-      }catch(e){ alert('Camera/mic blocked or unsupported: '+e.message) }
-    }
+    if('requestVideoFrameCallback' in v) v.requestVideoFrameCallback(draw)
+    else rafId=requestAnimationFrame(draw)
+  }
+  draw()
 
-    /* ---------- state / bots ---------- */
-    const FIRST=['Kai','Mika','Rae','Luca','Noa','Sage','Aria','Zee','Tane','Mali','Jax','Tori','Koa','Rook','Navi','Kane','Dax','Nova','Sefa','Lani']
-    const LAST =['Fiji','PNG','Sam','Ghost','Vault','Empire','Alpha','Beta','Sigma','Edge','Volt','Storm','Reign','Wave','Raptor']
-    const botName = ()=> choice(FIRST)+' '+choice(LAST)
-    const SUPPORT=['This is the vibe. 🔥','Mic sounds clean.','W stream energy.','Respect from the islands. 🌊','Lesson landed. Say it again.','Ghost Child mode unlocked.','Clipping this 😂']
-    const ROAST=['Mid take, cook harder. 😈','Too safe—give me blood.','Chat wants proof, not poetry.','Where’s the system, commander?']
-    const COACH=['Define it in one line.','First step right now?','Give the 3 rules.','What’s the proof? Numbers.']
-    const colorFor=(name)=>{let h=0;for(let i=0;i<name.length;i++)h=(h*31+name.charCodeAt(i))%360;return `hsl(${h} 75% 70%)`}
+  // Capture canvas at high fps; add mic
+  const fps = (v.getVideoTracks()[0].getSettings().frameRate||30) >= 60 ? 60 : 30
+  const out=canvas.captureStream(fps)
+  v.srcObject.getAudioTracks().forEach(t=> out.addTrack(t))
 
-    const state={handle:localStorage.getItem('gc_handle')||'ghostchild', style:localStorage.getItem('gc_style')||'support',
-      viewBase:37, msgRate:1200, botsOn:false, viewers:0, likes:0, clockStart:0, chat:[]}
-    $('#handle').textContent=state.handle
+  const mime=preferMime()
+  const opts = mime ? {mimeType:mime, videoBitsPerSecond: 12_000_000, audioBitsPerSecond: 192_000}
+                    : {videoBitsPerSecond: 12_000_000, audioBitsPerSecond: 192_000}
+  try{ rec=new MediaRecorder(out, opts) }catch(e){ try{ rec=new MediaRecorder(out) }catch{ alert('Recording not supported here.'); return } }
+  chunks=[]
+  rec.ondataavailable=e=>{ if(e.data.size) chunks.push(e.data) }
+  rec.onstop=()=>{
+    const type=mime||'video/webm'
+    const blob=new Blob(chunks,{type})
+    const url=URL.createObjectURL(blob)
+    const a=document.createElement('a'); a.href=url; a.download=`ghost_ultra_${Date.now()}.${type.includes('mp4')?'mp4':'webm'}`; a.click()
+    setTimeout(()=>URL.revokeObjectURL(url),1000)
+    $('#recUltra').textContent='● Record ULTRA (Video+Chat)'
+    if(rafId) cancelAnimationFrame(rafId); rec=null; chunks=[]
+  }
+  rec.start(150) // small timeslice = smoother
+  $('#recUltra').textContent='■ Stop Recording'
+}
 
-    function tickViewers(){
-      const d=rnd(-2,4); if(state.viewers<=0) state.viewers=state.viewBase+rnd(-3,6)
-      state.viewers=Math.max(0,state.viewers+d); viewersEl.textContent=state.viewers
-      if(Math.random()<0.4) addHeart()
-    }
-    function addHeart(){ state.likes++; likesEl.textContent=state.likes; const h=document.createElement('div'); h.className='heart'; h.style.right=(10+rnd(-20,20))+'px'; likeArea.appendChild(h); setTimeout(()=>h.remove(),2200) }
-    setInterval(tickViewers,1200)
+function stopRec(){ if(rec && rec.state!=='inactive') rec.stop() }
+function wrap(ctx,text,maxW){ const words=String(text).split(/\s+/), out=[]; let line=''; for(const w of words){ const t=line?line+' '+w:w; if(ctx.measureText(t).width>maxW){ if(line) out.push(line); line=w } else line=t } if(line) out.push(line); return out }
 
-    function startClock(){ state.clockStart=Date.now(); setInterval(()=>{const s=Math.floor((Date.now()-state.clockStart)/1000); clockEl.textContent=`${pad2(Math.floor(s/60))}:${pad2(s%60)}`},1000) }
-    startClock()
+/* === buttons === */
+$('#startCam').onclick=startCamera
+$('#toggleBots').onclick=()=> state.botsOn?stopBots():startBots()
+$('#hype').onclick=()=>{ banner('HYPE ⚡', 'hype'); emojiBurst(['🔥','⚡','🚀','🏆','😤','💪']) }
+$('#boo').onclick = ()=>{ banner('BOOOO 💀', 'boo'); emojiBurst(['💀','😬','👎','😭']) }
+$('#clearChat').onclick=()=>{ chatBody.innerHTML=''; state.chat=[]; combo=0; renderCombo() }
+$('#sendBtn').onclick=()=>{ const v=$('#myMsg').value.trim(); if(!v) return; pushMsg(state.handle, v); $('#myMsg').value='' }
+let mirrorOn=true; $('#mirrorBtn').onclick=()=>{ mirrorOn=!mirrorOn; $('#mirrorBtn').textContent=`Mirror: ${mirrorOn?'ON':'OFF'}`; document.getElementById('app').classList.toggle('mirror',mirrorOn) }
+let fs=false; $('#fsBtn').onclick=()=>{ fs?exitFS():goFS(); fs=!fs }
+document.addEventListener('keydown',e=>{
+  if(['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return
+  const k=e.key.toLowerCase()
+  if(k==='c') startCamera()
+  if(k==='b') state.botsOn?stopBots():startBots()
+  if(k==='h') $('#hype').click()
+  if(k==='v') $('#recUltra').click()
+  if(k==='m') $('#mirrorBtn').click()
+  if(k==='f') $('#fsBtn').click()
+  if(k==='s') $('#toggleSettings').click()
+})
 
-    let autoScroll=true
-    chatBody.addEventListener('scroll', ()=>{
-      autoScroll = chatBody.scrollHeight - chatBody.scrollTop - chatBody.clientHeight < 40
-      $('#jump').style.display = autoScroll ? 'none' : 'block'
-    })
-    $('#jump').onclick=()=>{ autoScroll=true; chatBody.scrollTop=chatBody.scrollHeight; $('#jump').style.display='none' }
+/* === settings === */
+const settings=$('#settings')
+$('#toggleSettings').onclick=()=> settings.hidden=!settings.hidden
+$('#saveSettings').onclick=()=>{
+  state.handle = $('#setHandle').value.trim()||'ghostchild'; $('#handle').textContent=state.handle
+  state.mood = $('#setMood').value; $('#moodLive').textContent=state.mood
+  state.msgRate = Math.max(250, parseInt($('#setRate').value||'900',10))
+  state.chatMax = Math.max(40, parseInt($('#setChatMax').value||'140',10))
+  localStorage.setItem('gc_handle',state.handle)
+  localStorage.setItem('gc_mood',state.mood)
+  localStorage.setItem('gc_msgrate',state.msgRate)
+  localStorage.setItem('gc_chatmax',state.chatMax)
+  settings.hidden=true; pushSys('Settings saved.')
+}
 
-    function pushMsg(name, text){
-      const row=document.createElement('div'); row.className='msg'
-      const av=document.createElement('div'); av.className='avatar'; av.textContent=name.split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase()
-      const bubble=document.createElement('div'); bubble.className='bubble'
-      bubble.innerHTML=`<span class="name" style="color:${colorFor(name)}">${escape(name)}</span>${escape(text)}`
-      row.appendChild(av); row.appendChild(bubble); chatBody.appendChild(row)
-      if(autoScroll) chatBody.scrollTop=chatBody.scrollHeight
-      state.chat.push({name,text}); if(state.chat.length>240) state.chat=state.chat.slice(-240)
-      if(Math.random()<0.33) addHeart()
-    }
-    function pushSys(t){ const row=document.createElement('div'); row.className='sys'; row.textContent=t; chatBody.appendChild(row); if(autoScroll) chatBody.scrollTop=chatBody.scrollHeight }
-    const escape = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))
-
-    let botTimer=null
-    const pool=()=> state.style==='support'?SUPPORT: state.style==='roast'?ROAST:COACH
-    function botTick(){ if(!state.botsOn) return; pushMsg(botName(), choice(pool())); scheduleBot() }
-    function scheduleBot(){ clearTimeout(botTimer); botTimer=setTimeout(botTick, Math.max(300, state.msgRate+(Math.random()*0.9-0.45)*state.msgRate)) }
-    function startBots(){ state.botsOn=true; botsStateEl.textContent='on'; pushSys('Bots joined.'); scheduleBot() }
-    function stopBots(){ state.botsOn=false; botsStateEl.textContent='off'; pushSys('Bots paused.'); clearTimeout(botTimer) }
-    function hype(){ for(let i=0;i<10;i++) setTimeout(addHeart,i*120); state.viewers+=rnd(12,30); viewersEl.textContent=state.viewers; pushSys(choice(['Chat moving 🔥','Momentum detected ⚡','Numbers spiking—press'])) ; for(let j=0;j<rnd(3,6);j++) pushMsg(botName(), choice(pool())) }
-
-    /* ---------- emoji bar ---------- */
-    ;['🔥','⚡','😂','💀','🎯','🚀','🏆','🙌','💬','🗡️','🌊','💎','😈','💪','❤️'].forEach(e=>{ const b=document.createElement('button'); b.className='emojiBtn'; b.textContent=e; b.onclick=()=>{ const i=$('#myMsg'); i.value=(i.value+' '+e).trim(); i.focus() }; $('#emojiBar').appendChild(b) })
-
-    /* ---------- buttons ---------- */
-    $('#startCam').onclick=startCamera
-    $('#toggleBots').onclick=()=> state.botsOn?stopBots():startBots()
-    $('#hype').onclick=hype
-    $('#clearChat').onclick=()=>{ chatBody.innerHTML=''; state.chat=[] }
-    $('#sendBtn').onclick=()=>{ const v=$('#myMsg').value.trim(); if(!v) return; pushMsg(state.handle, v); $('#myMsg').value='' }
-    let mirrorOn=true; $('#mirrorBtn').onclick=()=>{ mirrorOn=!mirrorOn; $('#mirrorBtn').textContent=`Mirror: ${mirrorOn?'ON':'OFF'}`; document.getElementById('app').classList.toggle('mirror',mirrorOn) }
-
-    /* ---------- Fullscreen / Rotate (Android+Desktop / iOS) ---------- */
-    async function goFullscreen(){
-      if(isiOS){
-        // iPhone/iPad: enter native video fullscreen and rotate device
-        try{ cam.webkitEnterFullscreen?.() }catch{}
-        return
-      }
-      try{
-        await document.documentElement.requestFullscreen()
-        await screen.orientation?.lock?.('landscape').catch(()=>{})
-        document.body.classList.add('theater')
-      }catch{
-        // fallback theater mode
-        document.body.classList.toggle('theater')
-      }
-    }
-    async function exitFullscreen(){
-      if(isiOS){
-        try{ cam.webkitExitFullscreen?.() }catch{}
-        return
-      }
-      if(document.fullscreenElement){ await document.exitFullscreen(); document.body.classList.remove('theater') }
-      else { document.body.classList.remove('theater') }
-    }
-    let fs=false
-    $('#fsBtn').onclick=()=>{ fs?exitFullscreen():goFullscreen(); fs=!fs }
-    videoBox.ondblclick=()=>{ $('#fsBtn').click() }
-
-    /* ---------- recording (same as before) ---------- */
-    let rec=null, chunks=[]
-    const chooseMime=()=> MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':MediaRecorder.isTypeSupported('video/webm;codecs=vp8')?'video/webm;codecs=vp8':MediaRecorder.isTypeSupported('video/mp4;codecs=h264')?'video/mp4;codecs=h264':''
-    $('#recCam').onclick=async()=>{ if(rec){ stopRec(); return } if(!cam.srcObject){ await startCamera() } startRec(cam.srcObject,$('#recCam')) }
-    let rafId=null
-    $('#recHud').onclick=async()=>{ if(rec){ stopRec(); return } if(!cam.srcObject){ await startCamera() }
-      const v=cam, cw=v.videoWidth||1280, ch=v.videoHeight||720
-      const canvas=document.createElement('canvas'); canvas.width=cw; canvas.height=ch; const ctx=canvas.getContext('2d')
-      const draw=()=>{ ctx.drawImage(v,0,0,cw,ch)
-        ctx.fillStyle='rgba(0,0,0,.45)'; ctx.fillRect(16,16,360,76)
-        ctx.fillStyle='#F2F5F7'; ctx.font='24px system-ui'; ctx.fillText('@'+state.handle,28,46)
-        ctx.fillStyle='#F6E7B2'; ctx.font='18px system-ui'; ctx.fillText(`👁 ${state.viewers}   ❤️ ${state.likes}   ⏱ ${clockEl.textContent}`,28,72)
-        // last 8 chat lines
-        const msgs=state.chat.slice(-8); const w=Math.min(420,Math.floor(cw*0.42)), x=cw-w-16, y0=16; ctx.fillStyle='rgba(0,0,0,.42)'; ctx.fillRect(x,y0,w,8+msgs.length*44)
-        let y=y0+30; for(const m of msgs){ ctx.fillStyle=colorFor(m.name); ctx.font='16px system-ui'; ctx.fillText(m.name, x+12,y); ctx.fillStyle='#e6ecef'; for(const line of wrap(ctx,m.text,w-24)){ ctx.fillText(line,x+12,y+18); y+=18 } y+=24 }
-        if('requestVideoFrameCallback' in v) v.requestVideoFrameCallback(draw); else rafId=requestAnimationFrame(draw)
-      }; draw()
-      const out=canvas.captureStream(30); cam.srcObject.getAudioTracks().forEach(t=> out.addTrack(t))
-      startRec(out,$('#recHud'),()=> rafId && cancelAnimationFrame(rafId))
-    }
-    function startRec(stream, btn, done){
-      chunks=[]; const mime=chooseMime()
-      let opts=mime?{mimeType:mime, videoBitsPerSecond:6_000_000, audioBitsPerSecond:128_000}:{videoBitsPerSecond:6_000_000, audioBitsPerSecond:128_000}
-      try{ rec=new MediaRecorder(stream,opts) }catch(e){ try{ rec=new MediaRecorder(stream) }catch{ alert('Recording not supported here.'); return } }
-      rec.ondataavailable=e=>{ if(e.data.size) chunks.push(e.data) }
-      rec.onstop=()=>{ const type=mime||'video/webm'; const blob=new Blob(chunks,{type}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`ghostchild_${Date.now()}.${type.includes('mp4')?'mp4':'webm'}`; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000); btn.textContent=btn===$('#recCam')?'● Record (Camera)':'● Record (HUD+Chat)'; if(done) done(); rec=null; chunks=[] }
-      rec.start(200); btn.textContent='■ Stop Recording'
-    }
-    function stopRec(){ if(rec && rec.state!=='inactive') rec.stop() }
-    function wrap(ctx,t,maxW){ const w=String(t).split(/\s+/), out=[]; let line=''; for(const word of w){ const test=line?line+' '+word:word; if(ctx.measureText(test).width>maxW){ if(line) out.push(line); line=word } else line=test } if(line) out.push(line); return out }
-
-    /* ---------- start ---------- */
-    pushSys('Tip: double-tap the video or use “Rotate / Fullscreen”.')
-    sizeChat()
-
-    function pushSys(t){ const row=document.createElement('div'); row.className='sys'; row.textContent=t; chatBody.appendChild(row); chatBody.scrollTop=chatBody.scrollHeight }
-  </script>
+/* === init === */
+pushSys('Ultra mode loaded. Start camera, hit “Record ULTRA” to capture video+chat in one file.')
+setTimeout(()=> sizeChat(), 50)
+window.addEventListener('resize', sizeChat)
+new ResizeObserver(sizeChat).observe($('#videoBox'))
+function sizeChat(){
+  const vb=$('#videoBox').getBoundingClientRect().height
+  const topH=$('.top').getBoundingClientRect().height
+  const controlsH=$('.controls').getBoundingClientRect().height
+  const avail=Math.max(240, window.innerHeight - (vb+topH+controlsH+28))
+  $('#chatPanel').style.maxHeight=avail+'px'
+}
+</script>
 </body>
 </html>
